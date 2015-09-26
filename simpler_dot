@@ -21,7 +21,7 @@ def dot_node_name(name):
 def convert(from_file, output_file):
     "convert sdot format to dot format"
     nodes = set()
-    edges = dict()
+    edges = []
     with open(from_file) as inputf:
         with open(output_file, "w") as outputf:
             outputf.write("digraph simple {\n")
@@ -33,10 +33,10 @@ def convert(from_file, output_file):
                 to_node_name = match_result.group(2).strip()
                 nodes.add(from_node_name)
                 nodes.add(to_node_name)
-                edges[from_node_name] = to_node_name
+                edges.append((from_node_name, to_node_name))
             for node in nodes:
                 outputf.write('  {0} [label="{1}"];\n'.format(dot_node_name(node), node))
-            for from_node, to_node in edges.items():
+            for from_node, to_node in edges:
                 outputf.write('  {0} -> {1};\n'.format(dot_node_name(from_node),
                                                        dot_node_name(to_node)))
             outputf.write("}\n")
