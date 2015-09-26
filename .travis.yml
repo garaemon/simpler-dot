@@ -5,6 +5,6 @@ addons:
     packages:
       - python-pip
 install:
-  - pip install --user pylint
+  - pip install pylint
 script:
   pylint simpler_dot
