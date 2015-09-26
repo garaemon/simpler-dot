@@ -26,6 +26,9 @@ def convert(from_file, output_file):
         with open(output_file, "w") as outputf:
             outputf.write("digraph simple {\n")
             for line in inputf.readlines():
+                if line.strip() == "LR":
+                    outputf.write("graph [rankdir=LR];\n")
+                    continue
                 match_result = re.match(r"(.*)[\s]*->[\s]*(.*)", line)
                 if not match_result:
                     raise Exception("{0} looks illegal format".format(line))
